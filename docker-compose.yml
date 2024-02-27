@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  testcoreapp:
+    image: ${DOCKER_REGISTRY-}testcoreapp
+    build:
+      context: .
+      dockerfile: TestCoreApp/Dockerfile
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ahmed
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Optional if you want to access the DB from the host
+
+  
+
+volumes:
+  postgres_data:
